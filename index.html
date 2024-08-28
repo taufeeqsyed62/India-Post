@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Post - Financial Scheme Recommender</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand font-weight-bold" href="#">India Post</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#upload-file"><i class="fas fa-upload"></i> Upload File</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#fill-form"><i class="fas fa-file-alt"></i> Fill Customer Form</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="bg-primary text-white text-center py-5">
+        <h1 class="display-4">Financial Scheme Recommender</h1>
+        <p class="lead">AI-Based Identification of Financial Needs Based on Demographics and Economic Cycle</p>
+    </header>
+
+    <!-- Upload File Section -->
+    <section id="upload-file" class="container my-5">
+        <h3 class="text-center mb-4">Upload Dataset File</h3>
+        <div class="card shadow-sm p-4">
+            <form>
+                <div class="form-group">
+                    <label for="fileUpload" class="font-weight-bold">Select CSV File:</label>
+                    <input type="file" class="form-control-file" id="fileUpload" accept=".csv">
+                </div>
+                <button type="button" class="btn btn-primary btn-block" onclick="uploadFile()">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload File
+                </button>
+            </form>
+            <div id="uploadMessage" class="mt-3 text-center text-success font-weight-bold"></div>
+        </div>
+    </section>
+
+    <!-- OR Divider -->
+    <div class="or-divider text-center my-4">
+        <span class="text-muted">OR</span>
+    </div>
+
+    <!-- Fill Customer Form Section -->
+    <section id="fill-form" class="container my-5">
+        <h3 class="text-center mb-4">Fill Customer Information</h3>
+        <div class="card shadow-sm p-4">
+            <form id="customerForm">
+                <!-- Personal Information -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="name" class="font-weight-bold">Customer Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter customer name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="age" class="font-weight-bold">Age:</label>
+                        <input type="number" class="form-control" id="age" placeholder="Enter age" required>
+                    </div>
+                </div>
+
+                <!-- Demography -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="gender" class="font-weight-bold">Gender:</label>
+                        <select class="form-control" id="gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="maritalStatus" class="font-weight-bold">Marital Status:</label>
+                        <select class="form-control" id="maritalStatus" required>
+                            <option value="" disabled selected>Select Marital Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Financial Information -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="income" class="font-weight-bold">Annual Income (in INR):</label>
+                        <input type="number" class="form-control" id="income" placeholder="Enter annual income" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="occupation" class="font-weight-bold">Occupation:</label>
+                        <select class="form-control" id="occupation" required>
+                            <option value="" disabled selected>Select Occupation</option>
+                            <option value="Farmer">Farmer</option>
+                            <option value="Salaried">Salaried</option>
+                            <option value="Business">Business</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Financial Cycle -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="savings" class="font-weight-bold">Monthly Savings (in INR):</label>
+                        <input type="number" class="form-control" id="savings" placeholder="Enter monthly savings" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="expenditure" class="font-weight-bold">Monthly Expenditure (in INR):</label>
+                        <input type="number" class="form-control" id="expenditure" placeholder="Enter monthly expenditure" required>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success btn-block" onclick="checkEligibility()">
+                    <i class="fas fa-search"></i> Check Eligible Schemes
+                </button>
+            </form>
+            <div id="schemeResults" class="mt-4 text-center text-info font-weight-bold"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white text-center py-3">
+        <p class="mb-0">India Post © 2024. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
